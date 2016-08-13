@@ -1,0 +1,141 @@
+<html>
+
+<head>
+<script>
+var uHeat = 0;
+var dHeat = 0;
+var doorXhr = new XMLHttpRequest();
+var vacXhr = new XMLHttpRequest();
+var uheatXhr = new XMLHttpRequest();
+var dheatXhr = new XMLHttpRequest();
+var alarmXhr = new XMLHttpRequest();
+
+alarmXhr.onreadystatechange = function() {
+  if (alarmXhr.readyState == 4 && alarmXhr.status == 200) {
+    var response = alarmXhr.responseText;
+    var time = response.slice(9);
+    var hours = time.slice(0,-4);
+    var minutes = time.slice(-4,-2);
+    var meridian = "AM";
+    if (hours > 12) {
+      hours = hours -12;
+      meridian = "PM";
+    };
+    document.getElementById("alarm").innerHTML = "Alarm is set to " + hours + ":" + minutes + " " + meridian;
+  };
+};
+
+doorXhr.onreadystatechange = function() {
+  if (doorXhr.readyState == 4 && doorXhr.status == 200) {
+    var response = doorXhr.responseText;
+    if (response.charAt(4) == "0") {
+      document.getElementById("door").innerHTML = "Door is Down";
+      document.getElementById("door").style.backgroundColor = "lightgreen";
+    };
+    
+    if (response.charAt(4) == "1") {
+      document.getElementById("door").innerHTML = "Door is Up";
+      document.getElementById("door").style.backgroundColor = "red";
+    };
+  };
+};
+
+vacXhr.onreadystatechange = function() {
+  if (vacXhr.readyState == 4 && vacXhr.status == 200) {
+    var response = vacXhr.responseText;
+    if (response.charAt(4) == "0") {
+      document.getElementById("vac").innerHTML = "Vacuum is Off";
+      document.getElementById("vac").style.backgroundColor = "lightgreen";
+    };
+    
+    if (response.charAt(4) == "1") {
+      document.getElementById("vac").innerHTML = "Vacuum is On";
+      document.getElementById("vac").style.backgroundColor = "red";
+    };
+  };
+};
+
+uheatXhr.onreadystatechange = function() {
+  if (uheatXhr.readyState == 4 && uheatXhr.status == 200) {
+    uHeat = uheatXhr.responseText;
+    document.getElementById("uTemp").innerHTML = "<b>Upstairs:<br />" + uHeat + "</b>";
+  };
+};
+
+dheatXhr.onreadystatechange = function() {
+  if (dheatXhr.readyState == 4 && dheatXhr.status == 200) {
+    dHeat = dheatXhr.responseText;
+    document.getElementById("dTemp").innerHTML = "<b>Downstairs:<br />" + dHeat + "</b>";
+  };
+};
+
+function getDoor() {
+  doorXhr.open("GET", "api.php?query=doorState", true);
+  doorXhr.send();
+};
+
+function getVac() {
+  vacXhr.open("GET", "api.php?query=vacState", true);
+  vacXhr.send();
+};
+
+function setVac() {
+	var xhttp2 = new XMLHttpRequest();
+	xhttp2.open("GET", "api.php?subbed=true&return=ceVac", true);
+	xhttp2.send();
+};
+
+function gotoAlarm() {
+  window.location = "alarm.html"
+};
+
+uheatXhr.open("GET", "api.php?query=uHeat", true);
+uheatXhr.send();
+
+
+dheatXhr.open("GET", "api.php?query=dHeat", true);
+dheatXhr.send();
+
+alarmXhr.open("GET", "api.php?alarm=true", true);
+alarmXhr.send();
+
+setInterval(getVac,1000);
+setInterval(getDoor,1000);
+
+</script>
+</head>
+
+<body>
+<div id="main" style="z-index:2">
+	<div id="topRow" style="margin:auto;width:600px;height:300px">
+		<div id="door" style="position:absolute;width:300px;height:300px;border:dashed 1px;font-size:35px;text-align:center">
+			Garage Door
+		</div>
+		
+		<div id="vac" style="position:relative;left:50%;width:300px;height:300px;border:dashed 1px;font-size:35px;text-align:center" onclick="setVac()">
+			Vacuum
+		</div>
+	</div>
+	
+	<div id="bottomRow" style="margin:auto;width:600px;height:300px">
+		<div id="upHeat" style="position:absolute;width:300px;height:300px;border:dashed 1px;font-size:35px">
+			<div id="uTemp" style="text-align:center;">
+			</div>
+		</div>
+		
+		<div id="downHeat" style="position:relative;left:50%;width:300px;height:300px;border:dashed 1px;font-size:35px">
+			<div id="dTemp" style="text-align:center;">
+			</div>
+		</div>
+	</div>
+  
+  <div id="alarmRow" style="margin:auto;width:600px;height:50px" onClick="gotoAlarm()">
+    <div id="alarm" style="position:relative;width:600px;height:50px;border:dashed 1px;font-size:35px;text-align:center">
+      Alarm
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

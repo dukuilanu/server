@@ -1,0 +1,46 @@
+<html>
+<head>
+<script>
+var i = 1;
+
+var xhttp2 = new XMLHttpRequest();
+	xhttp2.onreadystatechange = function() {
+if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+  var response = xhttp2.responseText;
+  if (response.charAt(4) == "0") {
+	document.getElementById("vac").innerHTML = "Vacuum is Off";
+	document.getElementById("vac").style.backgroundColor = "lightgreen";
+  }
+  
+  if (response.charAt(4) == "1") {
+	document.getElementById("vac").innerHTML = "Vacuum is On";
+	document.getElementById("vac").style.backgroundColor = "red";
+  }
+}
+};
+
+function getVac() {
+	xhttp2.open("GET", "api.php?query=vacState", true);
+	xhttp2.send();
+}
+
+setInterval(getVac,1000);
+
+function reGetVac() {
+  xhttp2.open("GET", "api.php?query=vacState", true);
+  xhttp2.send();
+  document.getElementById("vac").innerHTML = i;
+  i = i + 1;
+}
+
+</script>
+
+</head>
+
+<body>
+<div id='vac' style='position:absolute;top:10px;left:10px;height:200px;width:200px;background-Color:gray' onclick="reGetVac()">
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+<script>
+
+function submit() {
+  var submission = new XMLHttpRequest();
+  submission.onreadystatechange = function() {
+    window.location = "house.html";
+  };
+  
+  var hours = document.getElementById("hours").value;
+  hours = parseInt(hours);
+  var minutes = document.getElementById("minutes").value;
+  var meridian = document.getElementById("meridian").value;
+  
+  if (meridian == "pm") {
+    hours = hours + 12;
+  } else {
+    //do nothing
+  };
+  
+  var submitString = "api.php?alarm=true&subbing=" + hours + minutes;
+  console.log(submitString);
+  submission.open("GET", submitString, true);
+  submission.send();
+  
+};
+
+
+
+</script>
+</head>
+
+<body>
+<div style="position:relative;width:600px;height:300px;border:dashed 1px;font-size:35px;text-align:center">
+Enter new Alarm:<br />
+<input id="hours" size="2">:<input id="minutes" size="2"><br /><br />
+<select name="meridian" id = "meridian">
+  <option value="am">AM</option>
+  <option value="pm">PM</option>
+</select><br /><br />
+<input id="submit" type="submit" onClick="submit()">
+</div>
+
+</body>
+</html>

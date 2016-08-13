@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<dwml version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://graphical.weather.gov/xml/DWMLgen/schema/DWML.xsd">
+  <head>
+    <product concise-name="dwmlByDay" operational-mode="developmental" srsName="WGS 1984">
+      <creation-date refresh-frequency='PT1H'>2016-08-12T20:08:41-04:00</creation-date>
+     <category>current observations and forecast</category>
+    </product>
+    <source>
+      <production-center>New York, NY</production-center>
+      <credit>http://weather.gov/okx/</credit>
+      <more-information>http://www.nws.noaa.gov/forecasts/xml/</more-information>
+    </source>
+  </head>
+  <data type="forecast">
+
+  <location>
+    <location-key>point1</location-key>
+    <point latitude="41.45" longitude="-72.56"/>
+    <area-description>3 Miles W Haddam CT</area-description>
+    <height datum="mean sea level" height-units="feet">600</height>
+  </location>
+<moreWeatherInformation applicable-location="point1">http://forecast.weather.gov/MapClick.php?lat=41.45&amp;lon=-72.56</moreWeatherInformation>
+  <time-layout time-coordinate="local" summarization="12hourly">
+    <layout-key>k-p12h-n14-1</layout-key>
+      <start-valid-time period-name="Tonight">2016-08-12T21:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Saturday">2016-08-13T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Saturday Night">2016-08-13T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Sunday">2016-08-14T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Sunday Night">2016-08-14T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Monday">2016-08-15T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Monday Night">2016-08-15T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Tuesday">2016-08-16T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Tuesday Night">2016-08-16T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Wednesday">2016-08-17T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Wednesday Night">2016-08-17T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Thursday">2016-08-18T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Thursday Night">2016-08-18T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Friday">2016-08-19T06:00:00-04:00</start-valid-time>
+  </time-layout>
+
+  <time-layout time-coordinate="local" summarization="12hourly">
+    <layout-key>k-p24h-n7-1</layout-key>
+      <start-valid-time period-name="Tonight">2016-08-12T21:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Saturday Night">2016-08-13T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Sunday Night">2016-08-14T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Monday Night">2016-08-15T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Tuesday Night">2016-08-16T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Wednesday Night">2016-08-17T18:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Thursday Night">2016-08-18T18:00:00-04:00</start-valid-time>
+  </time-layout>
+
+  <time-layout time-coordinate="local" summarization="12hourly">
+    <layout-key>k-p24h-n7-2</layout-key>
+      <start-valid-time period-name="Saturday">2016-08-13T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Sunday">2016-08-14T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Monday">2016-08-15T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Tuesday">2016-08-16T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Wednesday">2016-08-17T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Thursday">2016-08-18T06:00:00-04:00</start-valid-time>
+      <start-valid-time period-name="Friday">2016-08-19T06:00:00-04:00</start-valid-time>
+  </time-layout>
+
+
+  <parameters applicable-location="point1">
+
+    <temperature type="minimum" units="Fahrenheit" time-layout="k-p24h-n7-1">
+      <name>Daily Minimum Temperature</name>
+        <value>76</value>
+        <value>77</value>
+        <value>74</value>
+        <value>68</value>
+        <value>68</value>
+        <value>69</value>
+        <value>68</value>
+    </temperature>
+
+    <temperature type="maximum" units="Fahrenheit" time-layout="k-p24h-n7-2">
+      <name>Daily Maximum Temperature</name>
+        <value>92</value>
+        <value>93</value>
+        <value>88</value>
+        <value>86</value>
+        <value>86</value>
+        <value>86</value>
+        <value>86</value>
+    </temperature>
+
+    <probability-of-precipitation  type="12 hour" units="percent" time-layout="k-p12h-n14-1">
+      <name>12 Hourly Probability of Precipitation</name>
+        <value>20</value>
+        <value>40</value>
+        <value>50</value>
+        <value>30</value>
+        <value>40</value>
+        <value>20</value>
+        <value xsi:nil="true"></value>
+        <value>30</value>
+        <value>40</value>
+        <value>50</value>
+        <value>40</value>
+        <value xsi:nil="true"></value>
+        <value xsi:nil="true"></value>
+        <value xsi:nil="true"></value>
+    </probability-of-precipitation>
+
+    <weather time-layout="k-p12h-n14-1">
+      <name>Weather Type, Coverage, Intensity</name>
+        <weather-conditions weather-summary="Heavy Rain"/>
+        <weather-conditions weather-summary="Heavy Rain"/>
+        <weather-conditions weather-summary="Heavy Rain"/>
+        <weather-conditions weather-summary="Heavy Rain"/>
+        <weather-conditions weather-summary="Heavy Rain"/>
+        <weather-conditions weather-summary="Slight Chance T-storms"/>
+        <weather-conditions weather-summary="Partly Cloudy"/>
+        <weather-conditions weather-summary="Partly Sunny then Chance T-storms"/>
+        <weather-conditions weather-summary="Chance T-storms"/>
+        <weather-conditions weather-summary="Chance T-storms"/>
+        <weather-conditions weather-summary="Chance T-storms then Mostly Cloudy"/>
+        <weather-conditions weather-summary="Partly Sunny"/>
+        <weather-conditions weather-summary="Partly Cloudy"/>
+        <weather-conditions weather-summary="Mostly Sunny"/>
+    </weather>
+
+    <conditions-icon type="forecast-NWS" time-layout="k-p12h-n14-1">
+      <name>Conditions Icon</name>        <icon-link>http://forecast.weather.gov/newimages/medium/nscttsra20.png</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/hi_tsra40.png</icon-link>
+        <icon-link>http://forecast.weather.gov/DualImage.php?i=hi_ntsra&amp;j=hi_ntsra&amp;ip=50&amp;jp=20</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/scttsra30.png</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/ntsra40.png</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/scttsra20.png</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/nsct.png</icon-link>
+        <icon-link>http://forecast.weather.gov/DualImage.php?i=bkn&amp;j=tsra&amp;jp=30</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/ntsra40.png</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/tsra50.png</icon-link>
+        <icon-link>http://forecast.weather.gov/DualImage.php?i=ntsra&amp;j=nbkn&amp;ip=40</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/bkn.png</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/nsct.png</icon-link>
+        <icon-link>http://forecast.weather.gov/newimages/medium/sct.png</icon-link>
+    </conditions-icon>
+
+    <hazards time-layout="">
+      <name>Watches, Warnings, and Advisories</name>
+      <hazard-conditions>
+        <hazard headline="Excessive Heat Warning">
+          <hazardTextURL>http://forecast.weather.gov/showsigwx.php?warnzone=CTZ007&amp;warncounty=CTC007&amp;firewxzone=CTZ007&amp;local_place1=3+Miles+W+Haddam+CT&amp;product1=Excessive+Heat+Warning</hazardTextURL>
+        </hazard>
+      </hazard-conditions>
+    </hazards>
+
+    <hazards time-layout="">
+      <name>Watches, Warnings, and Advisories</name>
+      <hazard-conditions>
+        <hazard headline="Air Quality Alert">
+          <hazardTextURL>http://forecast.weather.gov/showsigwx.php?warnzone=CTZ007&amp;warncounty=CTC007&amp;firewxzone=CTZ007&amp;local_place1=3+Miles+W+Haddam+CT&amp;product1=Air+Quality+Alert</hazardTextURL>
+        </hazard>
+      </hazard-conditions>
+    </hazards>
+
+    <hazards time-layout="">
+      <name>Watches, Warnings, and Advisories</name>
+      <hazard-conditions>
+        <hazard headline="Hazardous Weather Outlook">
+          <hazardTextURL>http://forecast.weather.gov/showsigwx.php?warnzone=CTZ007&amp;warncounty=CTC007&amp;firewxzone=CTZ007&amp;local_place1=3+Miles+W+Haddam+CT&amp;product1=Hazardous+Weather+Outlook</hazardTextURL>
+        </hazard>
+      </hazard-conditions>
+    </hazards>
+
+    <wordedForecast time-layout="k-p12h-n14-1" dataSource="okxNetcdf" wordGenerator="markMitchell">
+      <name>Text Forecast</name>
+        <text>Isolated showers and thunderstorms. Some of the storms could produce heavy rainfall.  Mostly cloudy, with a low around 76. Southwest wind 5 to 7 mph.  Chance of precipitation is 20%.</text>
+        <text>Scattered showers and thunderstorms, mainly after 2pm. Some of the storms could produce gusty winds and heavy rain.  Mostly sunny, with a high near 92. Heat index values as high as 103. West wind 5 to 10 mph becoming south in the morning.  Chance of precipitation is 40%.</text>
+        <text>Scattered showers and thunderstorms, mainly before midnight. Some of the storms could produce gusty winds and heavy rain.  Partly cloudy, with a low around 77. Southwest wind 6 to 8 mph.  Chance of precipitation is 50%.</text>
+        <text>A 30 percent chance of showers and thunderstorms, mainly after noon. Some of the storms could produce heavy rain.  Partly sunny, with a high near 93. Heat index values as high as 105. Southwest wind 5 to 10 mph. </text>
+        <text>A 40 percent chance of showers and thunderstorms. Some of the storms could produce heavy rain.  Increasing clouds, with a low around 74. Northwest wind 3 to 7 mph. </text>
+        <text>A 20 percent chance of showers and thunderstorms.  Partly sunny, with a high near 88.</text>
+        <text>Partly cloudy, with a low around 68.</text>
+        <text>A 30 percent chance of showers and thunderstorms after 2pm.  Mostly cloudy, with a high near 86.</text>
+        <text>A 40 percent chance of showers and thunderstorms.  Mostly cloudy, with a low around 68.</text>
+        <text>A 50 percent chance of showers and thunderstorms.  Mostly cloudy, with a high near 86.</text>
+        <text>A 40 percent chance of showers and thunderstorms.  Mostly cloudy, with a low around 69.</text>
+        <text>Partly sunny, with a high near 86.</text>
+        <text>Partly cloudy, with a low around 68.</text>
+        <text>Mostly sunny, with a high near 86.</text>
+    </wordedForecast>
+
+</parameters>
+</data>
+<data type="current observations">
+	<location>
+		<location-key>point1</location-key>
+		<point latitude="41.51" longitude="-72.83"/>
+		<area-description>Meriden, Meriden Markham Municipal Airport, CT</area-description>
+		<height datum="mean sea level" height-units="feet">102</height>
+	</location>
+	<moreWeatherInformation applicable-location="point1">http://www.nws.noaa.gov/data/obhistory/KMMK.html</moreWeatherInformation>	<time-layout time-coordinate="local">	<layout-key>k-p1h-n1-1</layout-key>	<start-valid-time period-name="current">2016-08-12T20:53:00-04:00</start-valid-time>	</time-layout>	<parameters applicable-location="point1">	<temperature type="apparent" units="Fahrenheit" time-layout="k-p1h-n1-1">	<value>83</value>	</temperature>	<temperature type="dew point" units="Fahrenheit" time-layout="k-p1h-n1-1">	<value>77</value>	</temperature>	<humidity type="relative" time-layout="k-p1h-n1-1">	<value>82</value>	</humidity>	<weather time-layout="k-p1h-n1-1">	<name>Weather Type, Coverage, Intensity</name>	<weather-conditions weather-summary="Fair"/>	<weather-conditions>	<value>	<visibility units="statute miles">10.00</visibility>	</value>	</weather-conditions>	</weather>	<conditions-icon type="forecast-NWS" time-layout="k-p1h-n1-1">	<name>Conditions Icon</name>	<icon-link>http://forecast.weather.gov/newimages/medium/nsct.png</icon-link>	</conditions-icon>	<direction type="wind" units="degrees true" time-layout="k-p1h-n1-1">	<value>0</value>	</direction>	<wind-speed type="gust" units="knots" time-layout="k-p1h-n1-1">	<value>NA</value>	</wind-speed>	<wind-speed type="sustained" units="knots" time-layout="k-p1h-n1-1">	<value>0</value>	</wind-speed>		<pressure type="barometer" units="inches of mercury" time-layout="k-p1h-n1-1">			<value>29.87</value>		</pressure>	</parameters></data></dwml>
