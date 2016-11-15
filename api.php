@@ -21,9 +21,13 @@ if (isset($_GET['alarm'])) {
     //store the new alarm setting
     $return = mysqli_query($conn,"UPDATE status SET queued = " . $_GET['subbing'] . " where name = 'alarm';");
   }
-  $return = mysqli_query($conn,"SELECT queued AS alarm FROM status WHERE name = 'alarm';");
+  
+  if (isset($_GET['switch'])) {
+    $return = mysqli_query($conn,"UPDATE status SET state = " . $_GET['switch'] . " where name = 'alarm';");
+  }
+  $return = mysqli_query($conn,"SELECT queued AS alarm, state as status FROM status WHERE name = 'alarm';");
   $row = mysqli_fetch_array($return);
-  echo "ALARM\r" . $row['alarm'];
+  echo "ALARM\r" . $row['alarm'] . "\r" . $row['status'];
  
 }
 
@@ -82,7 +86,7 @@ if (!isset($_GET['pulling']) && !isset($_GET['date'])) {
 				echo $row['state'];
 				break;
 			case "uHeat":
-				$return = mysqli_query($conn,"SELECT queued AS state FROM status WHERE name = 'uHeat';");
+				$return = mysqli_query($conn,"SELECT override AS state FROM thermostat WHERE id = '2';");
 				$row = mysqli_fetch_array($return);
 				echo $row['state'];
 				break;

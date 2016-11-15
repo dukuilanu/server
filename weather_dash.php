@@ -18,7 +18,7 @@
 	$conn = mysqli_connect("localhost","root","Apik0r0s","home");
 	$return = mysqli_query($conn,"SELECT * FROM extLog ORDER BY date DESC LIMIT 1;");
 	$result = mysqli_fetch_array($return);
-  echo $result[0] . ":<br />";
+  echo date("H:i",$result[0]) . "<br />";
 	echo "Temperature: " . $result[1] . "<br />
 	Humidity: " . $result[3] . "<br /><br />";
 	
@@ -32,7 +32,7 @@
   echo "Office:<br />";
   $return = mysqli_query($conn,"SELECT temp AS temp, humi AS humi FROM thermostat where id = 2;");
 	$result = mysqli_fetch_array($return);
-  echo $result['temp'] . " degrees, " . $result['humi'] . "%<br />";
+  echo $result['temp'] . " degrees<br />";
 
 	?>
   </div>
