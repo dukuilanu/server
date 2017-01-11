@@ -1,0 +1,18 @@
+#!/bin/bash
+curl 'http://forecast.weather.gov/MapClick.php?lat=41.4456&lon=-72.56&unit=0&lg=english&FcstType=dwml' -o /home/pi/www/weather/weather.xml
+
+curl http://radar.weather.gov/Conus/Loop/northeast_loop.gif -o /home/pi/www/weather/loop.gif
+
+curl 'http://forecast.weather.gov/meteograms/Plotter.php?lat=41.3776&lon=-72.5516&wfo=OKX&zcode=CTZ007&gset=20&gdiff=10&unit=0&tinfo=EY5&ahour=0&pcmd=10000011000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6' -o /home/pi/www/weather/48_graph.png
+
+#curl http://radar.weather.gov/graphics/northeastth.gif -o /home/pi/www/weather/small.gif
+#convert /home/pi/www/weather/small.gif -type truecolor /home/pi/www/weather/small.bmp
+
+curl http://radar.weather.gov/Conus/RadarImg/northeast.gif -o /home/pi/www/weather/temp.gif	#download image
+convert /home/pi/www/weather/temp.gif -type truecolor /home/pi/www/weather/temp.bmp		#convert to BMP
+convert temp.bmp -crop 200x200+250+200 +repage temp2.bmp					#crop the image to get just CT
+convert temp2.bmp -resize 150x150\! temp3.bmp							#resize to 150x150
+convert temp3.bmp -crop 50x50 %d.bmp								#crop into nine tiles, 50x50
+for i in 8 7 6 5 4 3 2 1 0; do mv $i.bmp $(($i+1)).bmp; done					#rename them here because I am lazy
+
+chmod 666 /home/pi/www/weather/*
