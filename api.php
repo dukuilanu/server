@@ -12,7 +12,7 @@ if (isset($_GET['subbed'])) {
 //Here, we just echo out the time for the thermostats
 if (isset($_GET['date'])) {
   //return the current time
-  echo date("Hi");
+  echo date("g:i a");
 }
 
 //Here we will store/ fetch the alarm setting for the bedroom clock.

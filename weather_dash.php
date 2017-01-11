@@ -29,6 +29,10 @@
 	echo $forecast->data[0]->parameters[0]->weather[0]->{'weather-conditions'}[0]['weather-summary'] . "<br />";
 	echo $forecast->data[0]->{'time-layout'}[0]->{'start-valid-time'}[1]['period-name'] . ": ";
 	echo $forecast->data[0]->parameters[0]->weather[0]->{'weather-conditions'}[1]['weather-summary'] . "<br /><br />";
+  //echo "Bedroom:<br />";
+  //$return = mysqli_query($conn,"SELECT temp AS temp, humi AS humi FROM thermostat where id = 1;");
+	//$result = mysqli_fetch_array($return);
+  //echo $result['temp'] . " degrees<br />";
   echo "Office:<br />";
   $return = mysqli_query($conn,"SELECT temp AS temp, humi AS humi FROM thermostat where id = 2;");
 	$result = mysqli_fetch_array($return);
