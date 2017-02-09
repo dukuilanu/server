@@ -4,100 +4,75 @@
 <script>
 var uHeat = 0;
 var dHeat = 0;
-var doorXhr = new XMLHttpRequest();
-var vacXhr = new XMLHttpRequest();
-var uheatXhr = new XMLHttpRequest();
-var dheatXhr = new XMLHttpRequest();
-var alarmXhr = new XMLHttpRequest();
-
-alarmXhr.onreadystatechange = function() {
-  if (alarmXhr.readyState == 4 && alarmXhr.status == 200) {
-    var response = alarmXhr.responseText;
-    var time = response.slice(9);
-    var hours = time.slice(0,-4);
-    var minutes = time.slice(-4,-2);
-    var meridian = "AM";
-    if (hours > 12) {
-      hours = hours -12;
-      meridian = "PM";
-    };
-    document.getElementById("alarm").innerHTML = "Alarm is set to " + hours + ":" + minutes + " " + meridian;
-  };
-};
-
-doorXhr.onreadystatechange = function() {
-  if (doorXhr.readyState == 4 && doorXhr.status == 200) {
-    var response = doorXhr.responseText;
-    if (response.charAt(4) == "0") {
-      document.getElementById("door").innerHTML = "Door is Down";
-      document.getElementById("door").style.backgroundColor = "lightgreen";
-    };
-    
-    if (response.charAt(4) == "1") {
-      document.getElementById("door").innerHTML = "Door is Up";
-      document.getElementById("door").style.backgroundColor = "red";
-    };
-  };
-};
-
-vacXhr.onreadystatechange = function() {
-  if (vacXhr.readyState == 4 && vacXhr.status == 200) {
-    var response = vacXhr.responseText;
-    if (response.charAt(4) == "0") {
-      document.getElementById("vac").innerHTML = "Vacuum is Off";
-      document.getElementById("vac").style.backgroundColor = "lightgreen";
-    };
-    
-    if (response.charAt(4) == "1") {
-      document.getElementById("vac").innerHTML = "Vacuum is On";
-      document.getElementById("vac").style.backgroundColor = "red";
-    };
-  };
-};
-
-uheatXhr.onreadystatechange = function() {
-  if (uheatXhr.readyState == 4 && uheatXhr.status == 200) {
-    uHeat = uheatXhr.responseText;
-    document.getElementById("uTemp").innerHTML = "<b>Upstairs:<br />" + uHeat + "</b>";
-  };
-};
-
-dheatXhr.onreadystatechange = function() {
-  if (dheatXhr.readyState == 4 && dheatXhr.status == 200) {
-    dHeat = dheatXhr.responseText;
-    document.getElementById("dTemp").innerHTML = "<b>Downstairs:<br />" + dHeat + "</b>";
-  };
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (xhttp.readyState == 4 && xhttp.status == 200) {
+  var response = xhttp.responseText;
+  if (response.charAt(4) == "0") {
+	document.getElementById("door").innerHTML = "Door is Down";
+	document.getElementById("door").style.backgroundColor = "lightgreen";
+  }
+  
+  if (response.charAt(4) == "1") {
+	document.getElementById("door").innerHTML = "Door is Up";
+	document.getElementById("door").style.backgroundColor = "red";
+  }
+}
 };
 
 function getDoor() {
-  doorXhr.open("GET", "api.php?query=doorState", true);
-  doorXhr.send();
+  xhttp.open("GET", "api.php?query=doorState", true);
+  xhttp.send();
+}
+
+var xhttp2 = new XMLHttpRequest();
+xhttp2.onreadystatechange = function() {
+if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+  var response = xhttp2.responseText;
+  if (response.charAt(4) == "0") {
+	document.getElementById("vac").innerHTML = "Vacuum is Off";
+	document.getElementById("vac").style.backgroundColor = "lightgreen";
+  }
+  
+  if (response.charAt(4) == "1") {
+	document.getElementById("vac").innerHTML = "Vacuum is On";
+	document.getElementById("vac").style.backgroundColor = "red";
+  }
+}
 };
 
 function getVac() {
-  vacXhr.open("GET", "api.php?query=vacState", true);
-  vacXhr.send();
+  xhttp2.open("GET", "api.php?query=vacState", true);
+  xhttp2.send();
+}
+
+var xhttp3 = new XMLHttpRequest();
+xhttp3.onreadystatechange = function() {
+if (xhttp3.readyState == 4 && xhttp3.status == 200) {
+  uHeat = xhttp3.responseText;
+  document.getElementById("uTemp").innerHTML = "<b>Upstairs:<br />" + uHeat + "</b>";
+}
 };
+xhttp3.open("GET", "api.php?query=uHeat", true);
+xhttp3.send();
+delete xhttp3;
+
+var xhttp4 = new XMLHttpRequest();
+xhttp4.onreadystatechange = function() {
+if (xhttp4.readyState == 4 && xhttp4.status == 200) {
+  dHeat = xhttp4.responseText;
+  document.getElementById("dTemp").innerHTML = "<b>Downstairs:<br />" + dHeat + "</b>";
+}
+};
+xhttp4.open("GET", "api.php?query=dHeat", true);
+xhttp4.send();
+delete xhttp4;
 
 function setVac() {
 	var xhttp2 = new XMLHttpRequest();
-	xhttp2.open("GET", "api.php?subbed=true&return=ceVac", true);
+	xhttp2.open("GET", "api.php?web_api_subbed=true&return=ceVac", true);
 	xhttp2.send();
 };
-
-function gotoAlarm() {
-  window.location = "alarm.html"
-};
-
-uheatXhr.open("GET", "api.php?query=uHeat", true);
-uheatXhr.send();
-
-
-dheatXhr.open("GET", "api.php?query=dHeat", true);
-dheatXhr.send();
-
-alarmXhr.open("GET", "api.php?alarm=true", true);
-alarmXhr.send();
 
 setInterval(getVac,1000);
 setInterval(getDoor,1000);
@@ -128,12 +103,6 @@ setInterval(getDoor,1000);
 			</div>
 		</div>
 	</div>
-  
-  <div id="alarmRow" style="margin:auto;width:600px;height:50px" onClick="gotoAlarm()">
-    <div id="alarm" style="position:relative;width:600px;height:50px;border:dashed 1px;font-size:35px;text-align:center">
-      Alarm
-    </div>
-  </div>
 </div>
 
 </body>

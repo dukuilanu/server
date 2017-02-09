@@ -3,12 +3,6 @@
 <?php
 $conn = mysqli_connect("localhost","root","Apik0r0s","home");
 
-//here, we queue anything selected by the website
-if (isset($_GET['subbed'])) {
-  //we queue the relevant DB entry for the device selected
-  $return = mysqli_query($conn,"UPDATE status SET queued = TRUE where name = '" . $_GET['return'] . "';");
-}
-
 //Here, we just echo out the time for the thermostats
 if (isset($_GET['date'])) {
   //return the current time
@@ -33,7 +27,30 @@ if (isset($_GET['alarm'])) {
 
 //Here are the services for the devices to grab queued commands
 //and update their status accordingly
-if (isset($_GET['pulling'])) {
+if (isset($_GET['device_api_pushing'])) {
+  if ($_GET["vac"] == "1") {
+	//update the db for vacuum on
+	$reset = mysqli_query($conn,"UPDATE status SET state = TRUE where name = 'ceVac';");
+  }
+  
+  if ($_GET["vac"] == "0") {
+	//update the db for vacuum off
+	$reset = mysqli_query($conn,"UPDATE status SET state = FALSE where name = 'ceVac';");
+  }
+  
+    if ($_GET["door"] == "1") {
+	//update the db for door up
+	$reset = mysqli_query($conn,"UPDATE status SET state = TRUE where name = 'gDoor';");
+  }
+  
+  if ($_GET["door"] == "0") {
+	//update the db for door down
+	$reset = mysqli_query($conn,"UPDATE status SET state = FALSE where name = 'gDoor';");
+  }
+  echo('OK');
+}
+
+if (isset($_GET['device_api_pulling'])) {
   //we return from the DB entry
   $return = mysqli_query($conn,"update status set updated = " . time() . " where name = 'gDoor'");
   $return = mysqli_query($conn,"SELECT name AS text FROM status WHERE queued = TRUE;");
@@ -49,29 +66,16 @@ if (isset($_GET['pulling'])) {
 
   }
   
-  if ($_GET["vac"] == "1") {
-	//update the db for vacuum on
-	$reset = mysqli_query($conn,"UPDATE status SET state = TRUE where name = 'ceVac';");
-  }
-  
-  if ($_GET["vac"] == "0") {
-	//update the db for vacuum off
-	$reset = mysqli_query($conn,"UPDATE status SET state = FALSE where name = 'ceVac';");
-  }
-  
-    if ($_GET["door"] == 1) {
-	//update the db for door up
-	$reset = mysqli_query($conn,"UPDATE status SET state = TRUE where name = 'gDoor';");
-  }
-  
-  if ($_GET["door"] == 0) {
-	//update the db for door down
-	$reset = mysqli_query($conn,"UPDATE status SET state = FALSE where name = 'gDoor';");
-  }
 }
 
 //These are services for the web page
-if (!isset($_GET['pulling']) && !isset($_GET['date'])) {
+//here, we queue anything selected by the website
+if (isset($_GET['web_api_subbed'])) {
+  //we queue the relevant DB entry for the device selected
+  $return = mysqli_query($conn,"UPDATE status SET queued = TRUE where name = '" . $_GET['return'] . "';");
+}
+
+if (!isset($_GET['device_api_pulling']) && !isset($GET_['device_api_pushing']) && !isset($_GET['date'])) {
 	if (isset($_GET['query'])) {
 		//find out what was queried and issue a one line text response
 		switch($_GET['query']) {
