@@ -52,7 +52,7 @@ if (isset($_GET['device_api_pushing'])) {
 
 if (isset($_GET['device_api_pulling'])) {
   //we return from the DB entry
-  $return = mysqli_query($conn,"update status set updated = " . time() . " where name = 'gDoor'");
+  $return = mysqli_query($conn,"update status set updated = " . time() . " WHERE name = 'gDoor'");
   $return = mysqli_query($conn,"SELECT name AS text FROM status WHERE queued = TRUE;");
   
   if (mysqli_num_rows($return) == 0) {
@@ -62,10 +62,65 @@ if (isset($_GET['device_api_pulling'])) {
   else {
 	  $row = mysqli_fetch_array($return);
 	  echo $row['text'];
-	  $reset = mysqli_query($conn,"UPDATE status SET queued = FALSE where name = '" . $row['text'] . "';");
+	  $reset = mysqli_query($conn,"UPDATE status SET queued = FALSE WHERE name = '" . $row['text'] . "';");
 
   }
   
+}
+
+//Here is the api stuff for the security device
+if (isset($_GET['sec'])) {
+  if (isset($_GET['pic'])) {
+    $return = mysqli_query($conn,"UPDATE status SET queued = TRUE WHERE name = 'secPic';");
+    $return = mysqli_query($conn,"UPDATE status SET updated = " . time() . " WHERE name = 'secPic'");
+  }
+  
+  if (isset($_GET['pulling'])) {
+    $return = mysqli_query($conn,"UPDATE status SET updated = " . time() . " WHERE name = 'sec'");
+    $return = mysqli_query($conn,"SELECT queued FROM status WHERE name = 'secPic'");
+    $row = mysqli_fetch_array($return);
+    if ($row['0'] == 1) {
+      echo "1\r\n";
+      $return = mysqli_query($conn,"UPDATE status SET queued = 0 WHERE name='secPic'");
+    }
+    
+    else {
+      echo "0";
+    }
+    
+    $return = mysqli_query($conn,"SELECT queued FROM status WHERE name = 'sec'");
+    $row = mysqli_fetch_array($return);
+    if ($row['0'] == 1) {
+      echo "2\r\n";
+    }
+    
+    else {
+      echo "3\r\n";
+      $return = mysqli_query($conn,"UPDATE status SET queued = 0 WHERE name='sec'");
+    }
+  }
+  
+  if (isset($_GET['event'])) {
+    if ($_GET['event'] == "started") {
+      $return = mysqli_query($conn,"UPDATE status SET state = 1, updated = " . time() . " WHERE name = 'sec'");
+    }
+    
+    if ($_GET['event'] == "stopped") {
+      $return = mysqli_query($conn,"UPDATE status SET state = 0 WHERE name = 'sec'");
+    }
+  }
+  
+  if (isset($_GET['enable'])) {
+    $return = mysqli_query($conn,"SELECT queued FROM status WHERE name = 'sec'");
+    $row = mysqli_fetch_array($return);
+    if ($row['0'] == 1) {
+      $return = mysqli_query($conn,"UPDATE status SET queued = 0 WHERE name = 'sec'");
+    }
+    
+    else {
+      $return = mysqli_query($conn,"UPDATE status SET queued = 1 WHERE name = 'sec'");
+    }
+  }
 }
 
 //These are services for the web page

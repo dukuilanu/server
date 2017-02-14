@@ -6,18 +6,18 @@ var uHeat = 0;
 var dHeat = 0;
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
-if (xhttp.readyState == 4 && xhttp.status == 200) {
-  var response = xhttp.responseText;
-  if (response.charAt(4) == "0") {
-	document.getElementById("door").innerHTML = "Door is Down";
-	document.getElementById("door").style.backgroundColor = "lightgreen";
+  if (xhttp.readyState == 4 && xhttp.status == 200) {
+    var response = xhttp.responseText;
+    if (response.charAt(4) == "0") {
+    document.getElementById("door").innerHTML = "Door is Down";
+    document.getElementById("door").style.backgroundColor = "lightgreen";
+    }
+    
+    if (response.charAt(4) == "1") {
+    document.getElementById("door").innerHTML = "Door is Up";
+    document.getElementById("door").style.backgroundColor = "red";
+    }
   }
-  
-  if (response.charAt(4) == "1") {
-	document.getElementById("door").innerHTML = "Door is Up";
-	document.getElementById("door").style.backgroundColor = "red";
-  }
-}
 };
 
 function getDoor() {
@@ -27,18 +27,18 @@ function getDoor() {
 
 var xhttp2 = new XMLHttpRequest();
 xhttp2.onreadystatechange = function() {
-if (xhttp2.readyState == 4 && xhttp2.status == 200) {
-  var response = xhttp2.responseText;
-  if (response.charAt(4) == "0") {
-	document.getElementById("vac").innerHTML = "Vacuum is Off";
-	document.getElementById("vac").style.backgroundColor = "lightgreen";
+  if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+    var response = xhttp2.responseText;
+    if (response.charAt(4) == "0") {
+    document.getElementById("vac").innerHTML = "Vacuum is Off";
+    document.getElementById("vac").style.backgroundColor = "lightgreen";
+    }
+    
+    if (response.charAt(4) == "1") {
+    document.getElementById("vac").innerHTML = "Vacuum is On";
+    document.getElementById("vac").style.backgroundColor = "red";
+    }
   }
-  
-  if (response.charAt(4) == "1") {
-	document.getElementById("vac").innerHTML = "Vacuum is On";
-	document.getElementById("vac").style.backgroundColor = "red";
-  }
-}
 };
 
 function getVac() {
@@ -48,10 +48,10 @@ function getVac() {
 
 var xhttp3 = new XMLHttpRequest();
 xhttp3.onreadystatechange = function() {
-if (xhttp3.readyState == 4 && xhttp3.status == 200) {
-  uHeat = xhttp3.responseText;
-  document.getElementById("uTemp").innerHTML = "<b>Upstairs:<br />" + uHeat + "</b>";
-}
+  if (xhttp3.readyState == 4 && xhttp3.status == 200) {
+    uHeat = xhttp3.responseText;
+    document.getElementById("uTemp").innerHTML = "<b>Upstairs:<br />" + uHeat + "</b>";
+  }
 };
 xhttp3.open("GET", "api.php?query=uHeat", true);
 xhttp3.send();
@@ -59,10 +59,10 @@ delete xhttp3;
 
 var xhttp4 = new XMLHttpRequest();
 xhttp4.onreadystatechange = function() {
-if (xhttp4.readyState == 4 && xhttp4.status == 200) {
-  dHeat = xhttp4.responseText;
-  document.getElementById("dTemp").innerHTML = "<b>Downstairs:<br />" + dHeat + "</b>";
-}
+  if (xhttp4.readyState == 4 && xhttp4.status == 200) {
+    dHeat = xhttp4.responseText;
+    document.getElementById("dTemp").innerHTML = "<b>Downstairs:<br />" + dHeat + "</b>";
+  }
 };
 xhttp4.open("GET", "api.php?query=dHeat", true);
 xhttp4.send();
@@ -71,6 +71,18 @@ delete xhttp4;
 function setVac() {
 	var xhttp2 = new XMLHttpRequest();
 	xhttp2.open("GET", "api.php?web_api_subbed=true&return=ceVac", true);
+	xhttp2.send();
+};
+
+function getPic() {
+	var xhttp2 = new XMLHttpRequest();
+	xhttp2.open("GET", "api.php?sec=true&pic=true", true);
+	xhttp2.send();
+};
+
+function enable() {
+	var xhttp2 = new XMLHttpRequest();
+	xhttp2.open("GET", "api.php?sec=true&enable=on", true);
 	xhttp2.send();
 };
 
@@ -103,6 +115,15 @@ setInterval(getDoor,1000);
 			</div>
 		</div>
 	</div>
+  
+  <div style="margin:auto;width:600px;height:50px;border:dashed">
+    <div id="pic" style="position:absolute;width:300px;height:50px;border:dashed 1px;font-size:35px" onclick="getPic()">
+      Take Picture
+    </div>
+    <div id="sec" style="position:relative;left:50%;width:300px;height:50px;border:dashed 1px;font-size:35px" onclick="enable()">
+      Enable Security
+    </div>
+  </div>
 </div>
 
 </body>
