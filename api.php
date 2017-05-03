@@ -140,9 +140,9 @@ if (!isset($_GET['device_api_pulling']) && !isset($GET_['device_api_pushing']) &
 				echo $row['state'];
 				break;
 			case "vacState":
-				$return = mysqli_query($conn,"SELECT state AS state FROM status WHERE name = 'ceVac';");
+				$return = mysqli_query($conn,"SELECT state AS state, queued AS queued FROM status WHERE name = 'ceVac';");
 				$row = mysqli_fetch_array($return);
-				echo $row['state'];
+				echo $row['state'] . $row['queued'];
 				break;
 			case "uHeat":
 				$return = mysqli_query($conn,"SELECT override AS state FROM thermostat WHERE id = '2';");

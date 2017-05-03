@@ -3,7 +3,7 @@ $conn = mysqli_connect("localhost","root","Apik0r0s","home");
 
 //first handle the outside thermostat
 if (isset ($_GET["outSub"])) {
-	$return = mysqli_query($conn, "INSERT INTO extLog VALUES (" . time() . ",'" . $_GET['outTemp'] . "',NULL,'" . $_GET['outHumidity'] . "');");
+	$return = mysqli_query($conn, "INSERT INTO extLog VALUES (" . time() . "," . $_GET['outTemp'] . " + 1.5,NULL,'" . $_GET['outHumidity'] . "');");
 	echo "SUBMITTED";
 }
 
