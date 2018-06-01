@@ -11,11 +11,33 @@
       <image src="/images/Command_logo.png" height="75%">
     </div>
   </div>
-
+  
+  <div id="secConsole">
+    <image src="images/console.png" style="position:absolute;left:60px;top:25px;" onclick="secClick()" />
+    <div class="subSection" id="refreshButton" style="left:60px;top:235;width:225px;height:35px" onclick="getPic()">
+      REFRESH IMAGE
+    </div>
+    <div class="subSection" id="streamButton" style="left:60px;top:295;width:225px;height:35px">
+      <a href='/stream'>STREAM</a>
+    </div>
+    <div class="subSection" id="lastPullId" style="left:350;top:85;width:225;height:70">
+      LOADING...
+    </div>
+    <div class="subSection" id="lastEventId" style="left:600;top:85;width:225;height:70">
+      LOADING...
+    </div>
+    <div id="lastPic" style="position:absolute;left:350px;top:235px;width:480px;height:320px" onload="getLatestPic()">
+      <image id='lastPicId' src='' width='480' height='320' />
+    </div>
+    <div id="secBottomBar" class="subSection" style="bottom:25px;left:5%;width:90%;height:35px" onclick="enable()">
+      LOADING...
+    </div>
+  </div>
+  
   <div id="securityDiv" class="section" style="top:200px;left:25px;width:250px;height:200px">
     SECURITY
-    <div id="pic" class="subSection" style="top:60px;left:5%;width:90%;height:35px;" onclick="getPic()">
-      VIEW
+    <div id="pic" class="subSection" style="top:60px;left:5%;width:90%;height:35px;" onclick="secClick()">
+      CONSOLE
     </div>
     
     <div id="sec" class="subSection" style="top:129px;left:5%;width:90%;height:35px" onclick="enable()">
@@ -41,7 +63,7 @@
   </div>
   
   <div id="env" class="section" style="top:25;left:325;width:650;height:700">
-    EXTERNAL ANALYSIS
+    TAU CETI V
     
     <div id="radar" class="envElement" style="top:0px;left:25px;width:300;height:375">
       <div style="position:absolute;top:60px;left:0px;width:300px">
@@ -54,7 +76,7 @@
         $conn = mysqli_connect("localhost","root","Apik0r0s","home");
         $return = mysqli_query($conn,"SELECT * FROM extLog ORDER BY date DESC LIMIT 1;");
         $result = mysqli_fetch_array($return);
-        echo '<span style="color:rgb(28,255,28)">' . date("H:i",$result[0]) . '<br /><br />HULL SENSOR:<br /></span>';
+        echo '<span style="color:rgb(28,255,28)">' . date("M j H:i",$result[0]) . '<br /><br />HULL SENSOR:<br /></span>';
         echo "Temperature: " . $result[1] . "<br />Humidity: " . $result[3] . "<br /><br />";
         
         $forecast = simplexml_load_file("weather/weather.xml");

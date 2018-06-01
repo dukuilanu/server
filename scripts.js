@@ -1,6 +1,8 @@
 var uHeat = 0;
 var dHeat = 0;
-
+var lastPicUrl = "";
+var firstRun = 1;
+var secMode = 0;
 //This is the xhttp object for gDoor
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
@@ -77,6 +79,10 @@ function getDoor() {
 function getVac() {
   xhttp2.open("GET", "api.php?query=vacState", true);
   xhttp2.send();
+  if (firstRun == 1) {
+    getSecStatus();
+    firstRun = 0;
+  }
 }
 
 function setVac() {
@@ -91,15 +97,125 @@ function getPic() {
 	var xhttp2 = new XMLHttpRequest();
 	xhttp2.open("GET", "api.php?sec=true&pic=true", true);
 	xhttp2.send();
+  document.getElementById("refreshButton").innerHTML = "REFRESHING...";
+  document.getElementById("refreshButton").style.backgroundColor = "yellow";
+  setTimeout(refreshImage,10000);
+};
+
+function refreshImage() {
+  var xhttp2 = new XMLHttpRequest();
+  xhttp2.open("GET", "api.php?sec=true&updatePic=true", true);
+  xhttp2.onreadystatechange = function() {
+    if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+      var response = xhttp2.responseText;
+      document.getElementById("lastPicId").src = "/photo/" + response;
+      document.getElementById("refreshButton").innerHTML = "REFRESH IMAGE";
+      document.getElementById("refreshButton").style.backgroundColor = "rgb(28,255,28)";
+    }
+  }
+  xhttp2.send();
+}
+
+function updateLastSecPull() {
+  var xhttp2 = new XMLHttpRequest();
+  xhttp2.open("GET", "api.php?sec=true&lastPull=true", true);
+  xhttp2.onreadystatechange = function() {
+    if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+      var response = xhttp2.responseText;
+      document.getElementById("lastPullId").innerHTML = "SYSTEM CHECK:<br />" + response;
+    }
+  }
+  xhttp2.send();
+}
+
+function updateLastSecEvent() {
+  var xhttp2 = new XMLHttpRequest();
+  xhttp2.open("GET", "api.php?sec=true&lastEvent=true", true);
+  xhttp2.onreadystatechange = function() {
+    if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+      var response = xhttp2.responseText;
+      document.getElementById("lastEventId").innerHTML = "LAST ALARM:<br />" + response;
+    }
+  }
+  xhttp2.send();
+}
+
+function secClick() {
+  if (secMode == 0) {
+    document.getElementById("secConsole").style.visibility = "visible";
+    document.getElementById("secConsole").style.zIndex="10";
+    secMode = 1;
+  }
+  else {
+    document.getElementById("secConsole").style.visibility = "hidden";
+    document.getElementById("secConsole").style.zIndex="-1";
+    secMode = 0;
+  }
+  getSecStatus();
 };
 
 function enable() {
 	var xhttp2 = new XMLHttpRequest();
 	xhttp2.open("GET", "api.php?sec=true&enable=on", true);
+  xhttp2.onreadystatechange = function() {
+    if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+      var response = xhttp2.responseText;
+      if (response.charAt(4) == "0") {
+        document.getElementById("secBottomBar").innerHTML = "ENGAGE";
+        document.getElementById("sec").innerHTML = "ENGAGE";
+        document.getElementById("secBottomBar").style.backgroundColor = "rgb(28,255,28)";
+        document.getElementById("sec").style.backgroundColor = "rgb(28,255,28)"
+      }
+      if (response.charAt(4) == "1") {
+        document.getElementById("secBottomBar").innerHTML = "DISENGAGE";
+        document.getElementById("sec").innerHTML = "DISENGAGE";
+        document.getElementById("secBottomBar").style.backgroundColor = "yellow";
+        document.getElementById("sec").style.backgroundColor = "yellow";
+      }
+    }
+  }
 	xhttp2.send();
 };
 
-setInterval(getVac,1000);
+function getSecStatus() {
+  var xhttp2 = new XMLHttpRequest();
+	xhttp2.open("GET", "api.php?sec=true&check=true", true);
+  xhttp2.onreadystatechange = function() {
+    if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+      var response = xhttp2.responseText;
+      if (response.charAt(4) == "0") {
+        document.getElementById("secBottomBar").innerHTML = "ENGAGE";
+        document.getElementById("sec").innerHTML = "ENGAGE";
+        document.getElementById("secBottomBar").style.backgroundColor = "rgb(28,255,28)low";
+        document.getElementById("sec").style.backgroundColor = "rgb(28,255,28)"
+      }
+      if (response.charAt(4) == "1") {
+        document.getElementById("secBottomBar").innerHTML = "DISENGAGE";
+        document.getElementById("sec").innerHTML = "DISENGAGE";
+        document.getElementById("secBottomBar").style.backgroundColor = "yellow";
+        document.getElementById("sec").style.backgroundColor = "yellow";
+      }
+    }
+  }
+	xhttp2.send();
+};
+
+function getLatestPic() {
+  var xhttp2 = new XMLHttpRequest();
+  xhttp2.open("GET", "api.php?sec=true&getLatestPic=true", true);
+  xhttp2.onreadystatechange = function() {
+    if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+      var response = xhttp2.responseText;
+      document.getElementById("lastPicId").src = "/photo/" + response;
+    }
+  }
+  xhttp2.send();
+}
+
+setInterval(getVac,1010);
 setInterval(getDoor,1000);
-setInterval(getUpTherm,2000);
+setInterval(getUpTherm,2010);
 setInterval(getDownTherm,2000);
+setInterval(updateLastSecPull,5010);
+setInterval(updateLastSecEvent,5000);
+setInterval(getLatestPic,1020);
