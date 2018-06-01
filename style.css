@@ -1,0 +1,72 @@
+body {
+  background-color:rgb(1,103,77);
+  font-family:tahoma,arial
+}
+
+.section {
+  background-color:black;
+  cursor:pointer;
+  border-radius:5px;
+  z-index:5;
+  
+  position:absolute;
+  
+  font-size:24px;
+  color:rgb(28,255,28);
+  text-align:center;
+}
+
+.subSection {
+  background-color:rgb(28,255,28);
+  cursor:pointer;
+  border-top-right-radius:10px;
+  
+  position:absolute;
+  
+  font-size:20px;
+  color:black;
+  
+  text-align:center;
+}
+
+.envElement {
+  position:absolute;
+  
+  font-size:24px;
+  color:rgb(28,255,28);
+  
+  text-align:center;
+}
+
+#vac {
+  background-color:rgb(28,255,28);
+  cursor:pointer;
+  
+  position:absolute;
+  
+  font-size:20px;
+  color:black;
+  
+  text-align:center;
+}
+
+#door {
+  background-color:rgb(28,255,28);
+  cursor:pointer;
+  
+  position:absolute;
+  
+  font-size:20px;
+  color:black;
+  
+  text-align:center;
+}
+
+#cast {
+  position:absolute;
+  
+  font-size:18px;
+  color:white;
+  
+  text-align:left;
+}
