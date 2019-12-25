@@ -111,14 +111,10 @@
       </div>
     </div>
     
-    <div id="upHeat" class="subSection" style="top:288px;left:5%;width:90%;height:80">
+    <div id="opsHeat" class="subSection" style="top:288px;left:5%;width:90%;height:80">
       OPERATIONS:
-      <div id="uTemp" style="top:65%;width:100%;height:35%">
-        <?php
-          $return = mysqli_query($conn,"SELECT temp AS temp FROM thermostat where id = 2;");
-          $result = mysqli_fetch_array($return);
-          echo $result['temp'] . " F<br />";
-        ?>
+      <div id="opsTemp" style="top:65%;width:100%;height:35%">
+        loading...
       </div>
     </div>
   </div>

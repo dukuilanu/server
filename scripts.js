@@ -1,5 +1,6 @@
 var uHeat = 0;
 var dHeat = 0;
+var opsHeat = 0;
 var lastPicUrl = "";
 var firstRun = 1;
 var secMode = 0;
@@ -48,7 +49,7 @@ var xhttp3 = new XMLHttpRequest();
 xhttp3.onreadystatechange = function() {
   if (xhttp3.readyState == 4 && xhttp3.status == 200) {
     uHeat = xhttp3.responseText;
-    document.getElementById("uTemp").innerHTML = uHeat + " F";
+    document.getElementById("uTemp").innerHTML = uHeat;
   }
 };
 
@@ -57,18 +58,31 @@ var xhttp4 = new XMLHttpRequest();
 xhttp4.onreadystatechange = function() {
   if (xhttp4.readyState == 4 && xhttp4.status == 200) {
     dHeat = xhttp4.responseText;
-    document.getElementById("dTemp").innerHTML = dHeat + " F";
+    document.getElementById("dTemp").innerHTML = dHeat;
+  }
+};
+
+var xhttp5 = new XMLHttpRequest();
+xhttp5.onreadystatechange = function() {
+  if (xhttp5.readyState == 4 && xhttp5.status == 200) {
+    opsHeat = xhttp5.responseText;
+    document.getElementById("opsTemp").innerHTML = opsHeat;
   }
 };
 
 function getUpTherm() {
-  xhttp3.open("GET", "api.php?query=uHeat", true);
+  xhttp3.open("GET", "api.php?query=temp&zone=1", true);
   xhttp3.send();
 }
 
 function getDownTherm() {
-  xhttp4.open("GET", "api.php?query=dHeat", true);
+  xhttp4.open("GET", "api.php?query=temp&zone=2", true);
   xhttp4.send();
+}
+
+function getOpsTherm() {
+  xhttp5.open("GET", "api.php?query=temp&zone=3", true);
+  xhttp5.send();
 }
 
 function getDoor() {
@@ -216,6 +230,7 @@ setInterval(getVac,1010);
 setInterval(getDoor,1000);
 setInterval(getUpTherm,2010);
 setInterval(getDownTherm,2000);
+setInterval(getOpsTherm,1900);
 setInterval(updateLastSecPull,5010);
 setInterval(updateLastSecEvent,5000);
 setInterval(getLatestPic,1020);

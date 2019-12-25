@@ -5,7 +5,7 @@ body {
 
 .section {
   background-color:black;
-  cursor:pointer;
+  cursor:default;
   border-radius:5px;
   z-index:5;
   
@@ -18,7 +18,7 @@ body {
 
 .subSection {
   background-color:rgb(28,255,28);
-  cursor:pointer;
+  cursor:default;
   border-top-right-radius:10px;
   
   position:absolute;
@@ -52,7 +52,6 @@ body {
 
 #door {
   background-color:rgb(28,255,28);
-  cursor:pointer;
   
   position:absolute;
   
@@ -69,4 +68,40 @@ body {
   color:white;
   
   text-align:left;
+}
+
+#secConsole {
+  background-color:rgb(14,9,6);
+  cursor:default;
+  position:absolute;
+  width:1000;
+  height:735;
+  text-align:left;
+  visibility:hidden;
+  border-radius:5px;
+  z-index:-1;
+}
+
+#pic {
+  background-color:rgb(28,255,28);
+  cursor:pointer;
+  
+  position:absolute;
+  
+  font-size:20px;
+  color:black;
+  
+  text-align:center;
+}
+
+#sec {
+  background-color:rgb(28,255,28);
+  cursor:pointer;
+  
+  position:absolute;
+  
+  font-size:20px;
+  color:black;
+  
+  text-align:center;
 }

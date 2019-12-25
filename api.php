@@ -2,6 +2,7 @@
 
 <?php
 $conn = mysqli_connect("localhost","root","Apik0r0s","home");
+$conn_therm = mysqli_connect("localhost","root","Apik0r0s","therm");
 
 //Here, we just echo out the time for the thermostats
 if (isset($_GET['date'])) {
@@ -170,16 +171,15 @@ if (!isset($_GET['device_api_pulling']) && !isset($GET_['device_api_pushing']) &
 				$row = mysqli_fetch_array($return);
 				echo $row['state'] . $row['queued'];
 				break;
-			case "uHeat":
-				$return = mysqli_query($conn,"SELECT override AS state FROM thermostat WHERE id = '2';");
+			case "temp":
+				$return = mysqli_query($conn_therm,"SELECT ROUND(primary_sensor_current, 2) AS state, ROUND(humidity, 2) AS hum FROM zones WHERE id = '" . $_GET["zone"] . "';");
 				$row = mysqli_fetch_array($return);
-				echo $row['state'];
+				echo $row['state'] . " F<br />" . $row['hum'] . " %";
 				break;
 			case "dHeat":
-				$return = mysqli_query($conn,"SELECT queued AS state FROM status WHERE name = 'dHeat';");
+				$return = mysqli_query($conn_therm,"SELECT primary_sensor_current AS state FROM zones WHERE id = '2';");
 				$row = mysqli_fetch_array($return);
 				echo $row['state'];
-				//$return = mysqli_query($conn,"UPDATE status SET state = " . $_GET["temp"] . " WHERE name = 'dHeat';");
 				break;
 		}
 	}
