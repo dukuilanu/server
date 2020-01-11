@@ -91,18 +91,18 @@ if (isset($_GET['sec'])) {
     $return = mysqli_query($conn,"SELECT queued FROM security WHERE name = 'secPic'");
     $row = mysqli_fetch_array($return);
     if ($row['0'] == 1) {
-      echo "1\r\n";
+      echo "takePic\r\n";
       $return = mysqli_query($conn,"UPDATE security SET queued = 0 WHERE name='secPic'");
     }
 
     $return = mysqli_query($conn,"SELECT queued FROM security WHERE name = 'sec'");
     $row = mysqli_fetch_array($return);
     if ($row['0'] == 1) {
-      echo "2\r\n";
+      echo "enable\r\n";
     }
     
     else {
-      echo "3\r\n";
+      echo "disable\r\n";
     }
   }
   
@@ -172,9 +172,9 @@ if (!isset($_GET['device_api_pulling']) && !isset($GET_['device_api_pushing']) &
 				echo $row['state'] . $row['queued'];
 				break;
 			case "temp":
-				$return = mysqli_query($conn_therm,"SELECT ROUND(primary_sensor_current, 2) AS state, ROUND(humidity, 2) AS hum FROM zones WHERE id = '" . $_GET["zone"] . "';");
+				$return = mysqli_query($conn_therm,"SELECT ROUND(primary_sensor_current, 2) AS state, ROUND(humidity, 2) AS hum, updated AS updated FROM zones WHERE id = '" . $_GET["zone"] . "';");
 				$row = mysqli_fetch_array($return);
-				echo $row['state'] . " F<br />" . $row['hum'] . " %";
+				echo $row['state'] . " F<br />" . date("M j g:i a", $row['updated']);
 				break;
 			case "dHeat":
 				$return = mysqli_query($conn_therm,"SELECT primary_sensor_current AS state FROM zones WHERE id = '2';");
