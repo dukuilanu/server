@@ -113,7 +113,7 @@ function getPic() {
 	xhttp2.send();
   document.getElementById("refreshButton").innerHTML = "REFRESHING...";
   document.getElementById("refreshButton").style.backgroundColor = "yellow";
-  setTimeout(refreshImage,10000);
+  //setTimeout(refreshImage,10000);
 };
 
 function refreshImage() {
@@ -221,6 +221,8 @@ function getLatestPic() {
     if (xhttp2.readyState == 4 && xhttp2.status == 200) {
       var response = xhttp2.responseText;
       document.getElementById("lastPicId").src = "/photo/" + response;
+	  document.getElementById("refreshButton").innerHTML = "REFRESH IMAGE";
+      document.getElementById("refreshButton").style.backgroundColor = "rgb(28,255,28)";
     }
   }
   xhttp2.send();

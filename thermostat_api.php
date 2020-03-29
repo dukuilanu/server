@@ -12,6 +12,7 @@ if (isset($_GET["outSub"])) {
 if (isset($_GET["inSub"])) {
 	//record current temperature from the device:
 	$return = mysqli_query($conn,"UPDATE zones SET primary_sensor_current = '" . $_GET["temp"] . "' WHERE id = " . $_GET["id"] . ";");
+	$return = mysqli_query($conn,"UPDATE zones SET updated = '" . time() . "' WHERE id = '" . $_GET["id"] . "';");
   
 	if (isset($_GET["humidity"])) {
 	$return = mysqli_query($conn,"UPDATE zones SET humidity = " . $_GET["humidity"] . " WHERE id = " . $_GET["id"] . ";");

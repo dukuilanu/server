@@ -6,10 +6,8 @@
 </head>
 
 <body>
-  <div id="logo" style="position:absolute;left:25px;top:25px;width:250;height:175">
-    <div style="position:absolute;top:0px;left:60px">
-      <image src="/images/Command_logo.png" height="75%">
-    </div>
+  <div id="logo" style="position:absolute;left:65px;top:10px;width:250;height:175">
+    <image src="/images/Command_logo.png" height="175px" width="175px">
   </div>
   
   <div id="secConsole">
@@ -26,7 +24,7 @@
     <div class="subSection" id="lastEventId" style="left:600;top:85;width:225;height:70">
       LOADING...
     </div>
-    <div id="lastPic" style="position:absolute;left:350px;top:235px;width:480px;height:320px" onload="getLatestPic()">
+    <div id="lastPic" style="position:absolute;left:350px;top:235px;width:480px;height:320px">
       <image id='lastPicId' src='' width='480' height='320' />
     </div>
     <div id="secBottomBar" class="subSection" style="bottom:25px;left:5%;width:90%;height:35px" onclick="enable()">
