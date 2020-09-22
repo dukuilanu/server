@@ -174,7 +174,7 @@ if (!isset($_GET['device_api_pulling']) && !isset($GET_['device_api_pushing']) &
 			case "temp":
 				$return = mysqli_query($conn_therm,"SELECT ROUND(primary_sensor_current, 2) AS state, ROUND(humidity, 2) AS hum, updated AS updated FROM zones WHERE id = '" . $_GET["zone"] . "';");
 				$row = mysqli_fetch_array($return);
-				echo $row['state'] . " F<br />" . date("M j g:i a", $row['updated']);
+				echo $row['state'] . " F, " . $row['hum'] . " %<br />" . date("M j g:i a", $row['updated']);
 				break;
 			case "dHeat":
 				$return = mysqli_query($conn_therm,"SELECT primary_sensor_current AS state FROM zones WHERE id = '2';");
