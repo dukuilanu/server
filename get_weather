@@ -1,14 +1,14 @@
 #!/bin/bash
-curl 'http://forecast.weather.gov/MapClick.php?lat=41.4456&lon=-72.56&unit=0&lg=english&FcstType=dwml' -o /home/pi/www/weather/weather.xml
+curl -L 'http://forecast.weather.gov/MapClick.php?lat=41.4456&lon=-72.56&unit=0&lg=english&FcstType=dwml' -o /home/pi/www/weather/weather.xml
 
 curl -L http://radar.weather.gov/Conus/Loop/northeast_loop.gif -o /home/pi/www/weather/loop.gif
 
-curl 'http://forecast.weather.gov/meteograms/Plotter.php?lat=41.3776&lon=-72.5516&wfo=OKX&zcode=CTZ007&gset=20&gdiff=10&unit=0&tinfo=EY5&ahour=0&pcmd=10000011000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6' -o /home/pi/www/weather/48_graph.png
+curl -L 'http://forecast.weather.gov/meteograms/Plotter.php?lat=41.3776&lon=-72.5516&wfo=OKX&zcode=CTZ007&gset=20&gdiff=10&unit=0&tinfo=EY5&ahour=0&pcmd=10000011000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6' -o /home/pi/www/weather/48_graph.png
 
 #curl http://radar.weather.gov/graphics/northeastth.gif -o /home/pi/www/weather/small.gif
 #convert /home/pi/www/weather/small.gif -type truecolor /home/pi/www/weather/small.bmp
 
-curl http://radar.weather.gov/Conus/RadarImg/northeast.gif -o /home/pi/www/weather/temp.gif		#download image
+curl -L http://radar.weather.gov/Conus/RadarImg/northeast.gif -o /home/pi/www/weather/temp.gif		#download image
 convert /home/pi/www/weather/temp.gif -type truecolor /home/pi/www/weather/temp.bmp			#convert to BMP
 convert /home/pi/www/weather/temp.bmp -crop 200x200+250+200 +repage /home/pi/www/weather/temp2.bmp	#crop the image to get just CT
 convert /home/pi/www/weather/temp2.bmp -resize 150x150\! /home/pi/www/weather/temp3.bmp			#resize to 150x150
