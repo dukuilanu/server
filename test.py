@@ -5,7 +5,7 @@ import busio
 import adafruit_bme680
 from Adafruit_IO import Client, Feed, RequestError
 
-ADAFRUIT_IO_KEY = 'aio_uZHk085mlzlzpDXIZK10kPj5aLDp'
+ADAFRUIT_IO_KEY = 'nope'
 ADAFRUIT_IO_USERNAME = 'errans'
 
 aio = Client(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
