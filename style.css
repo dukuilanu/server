@@ -63,10 +63,20 @@ body {
 
 #cast {
   position:absolute;
-  
+  font-size:18px;
+  color:rgb(28,255,28);
+  text-align:left;
+}
+
+#graph {
   font-size:18px;
   color:white;
-  
+  text-align:left;
+}
+
+#radar {
+  font-size:18px;
+  color:white;
   text-align:left;
 }
 

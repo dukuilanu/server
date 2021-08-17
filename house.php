@@ -60,12 +60,13 @@
     </div>
   </div>
   
-  <div id="env" class="section" style="top:25;left:325;width:650;height:700">
-    TAU CETI V
+  <div id="env" class="section" style="top:25;left:325;width:650;height:850">
+    CURRENT ORBIT: TAU CETI V
     
     <div id="radar" class="envElement" style="top:0px;left:25px;width:300;height:375">
       <div style="position:absolute;top:60px;left:0px;width:300px">
-        <img src="weather/loop.gif" width="300" />
+        <span style="color:rgb(28,255,28)">Stellar Activity:<br /></span>
+        <img src="weather/space1.gif" width="300" />
       </div>
     </div>
     
@@ -73,21 +74,35 @@
       <?php
         $conn = mysqli_connect("localhost","root","Apik0r0s","home");
         $return = mysqli_query($conn,"SELECT * FROM extLog ORDER BY date DESC LIMIT 1;");
-        $result = mysqli_fetch_array($return);
-        echo '<span style="color:rgb(28,255,28)">' . date("M j H:i",$result[0]) . '<br /><br />HULL SENSOR:<br /></span>';
-        echo "Temperature: " . $result[1] . "<br />Humidity: " . $result[3] . "<br /><br />";
-        
-        $forecast = simplexml_load_file("weather/weather.xml");
-        echo '<span style="color:rgb(28,255,28)">PREDICTED:</span><br />Now: ' . $forecast->data[0]->parameters[0]->temperature[0]->value[0] . ", Next: ";
-        echo $forecast->data[0]->parameters[0]->temperature[1]->value[0] . "<br />";
-        echo $forecast->data[0]->{'time-layout'}[0]->{'start-valid-time'}[0]['period-name'] . ": ";
-        echo $forecast->data[0]->parameters[0]->weather[0]->{'weather-conditions'}[0]['weather-summary'] . "<br />";
-        echo $forecast->data[0]->{'time-layout'}[0]->{'start-valid-time'}[1]['period-name'] . ": ";
-        echo $forecast->data[0]->parameters[0]->weather[0]->{'weather-conditions'}[1]['weather-summary'] . "<br /><br />";
+
+        if (mysqli_num_rows($return) != 0) {
+          $result = mysqli_fetch_array($return);
+          echo '<span style="color:rgb(28,255,28)">' . date("M j H:i",$result[0]) . '<br /><br />HULL SENSOR:<br /></span>';
+          echo "Temperature: " . $result[1] . "<br />Humidity: " . $result[3] . "<br /><br />";
+        } else {
+          echo '<span style="color:red">HULL SENSOR:<br /><i>Sensor Read Error!</i></span><br /><br /><br />';
+        }
+
+        $file = fopen("weather/spacecast_final.txt", "r");
+        //Output lines until EOF is reached
+        while(! feof($file)) {
+          $line = fgets($file);
+          echo $line;
+        }
+
+fclose($file);
+        //$forecast = simplexml_load_file("weather/weather.xml");
+        //echo '<span style="color:rgb(28,255,28)">PREDICTED:</span><br />Now: ' . $forecast->data[0]->parameters[0]->temperature[0]->value[0] . ", Next: ";
+        //echo $forecast->data[0]->parameters[0]->temperature[1]->value[0] . "<br />";
+        //echo $forecast->data[0]->{'time-layout'}[0]->{'start-valid-time'}[0]['period-name'] . ": ";
+        //echo $forecast->data[0]->parameters[0]->weather[0]->{'weather-conditions'}[0]['weather-summary'] . "<br />";
+        //echo $forecast->data[0]->{'time-layout'}[0]->{'start-valid-time'}[1]['period-name'] . ": ";
+        //echo $forecast->data[0]->parameters[0]->weather[0]->{'weather-conditions'}[1]['weather-summary'] . "<br /><br />";
       ?>
     </div>
     
-    <div id="graph" style="position:absolute;top:400px;left:25px">
+    <div id="graph" style="position:absolute;top:550px;left:25px">
+      Planetary Surface Forecast:<br />
       <img src="weather/48_graph.png" width="600px" />
     </div>
     
