@@ -1,5 +1,6 @@
 
 
+
 <?php
 $conn = mysqli_connect("localhost","root","Apik0r0s","home");
 $conn_therm = mysqli_connect("localhost","root","Apik0r0s","therm");
@@ -47,6 +48,11 @@ if (isset($_GET['device_api_pushing'])) {
   if ($_GET["door"] == "0") {
 	//update the db for door down
 	$reset = mysqli_query($conn,"UPDATE status SET state = FALSE where name = 'gDoor';");
+  }
+  if (isset($_GET["freq"])) {
+        //update the db with a new power frequency number
+        echo  "INSERT INTO freq values('" . time() . "', " . $_GET["freq"] . "');";
+        $reset = mysqli_query($conn, "INSERT INTO freq values('" . time() . "', '" . $_GET["freq"] . "');");
   }
   echo('OK');
 }
