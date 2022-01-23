@@ -3,6 +3,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="scripts.js"></script>
+<script src="chart.js/dist/chart.js"></script>
 </head>
 
 <body>
@@ -90,7 +91,7 @@
           echo $line;
         }
 
-fclose($file);
+		fclose($file);
         //$forecast = simplexml_load_file("weather/weather.xml");
         //echo '<span style="color:rgb(28,255,28)">PREDICTED:</span><br />Now: ' . $forecast->data[0]->parameters[0]->temperature[0]->value[0] . ", Next: ";
         //echo $forecast->data[0]->parameters[0]->temperature[1]->value[0] . "<br />";
@@ -108,27 +109,78 @@ fclose($file);
     
   </div>
   
-  <div id="therm" class="section" style="top:25;left:1025;width:250;height:700">
+  <div id="therm" class="section" style="top:25;left:1025;width:400;height:700">
     ENVIRONMENTAL
-    <div id="upHeat" class="subSection" style="top:60px;left:5%;width:90%;height:80">
+    <div id="upHeat" class="subSection" style="top:60px;left:5%;width:56%;height:80">
       CREW QUARTERS:
       <div id="uTemp" style="top:65%;width:100%;height:35%">
         loading...
       </div>
     </div>
     
-    <div id="downHeat" class="subSection" style="top:174px;left:5%;width:90%;height:80">
+    <div id="downHeat" class="subSection" style="top:174px;left:5%;width:56%;height:80">
       RECREATION:
       <div id="dTemp" style="top:65%;width:100%;height:35%">
         loading...
       </div>
     </div>
     
-    <div id="opsHeat" class="subSection" style="top:288px;left:5%;width:90%;height:80">
+    <div id="opsHeat" class="subSection" style="top:288px;left:5%;width:56%;height:80">
       OPERATIONS:
       <div id="opsTemp" style="top:65%;width:100%;height:35%">
         loading...
       </div>
+    </div>
+	<div id="opsFreq" class="subSection" style="top:402px;left:5%;width:90%;height:265">
+      POWER DIST:
+	<?php
+		$conn = mysqli_connect("localhost","root","Apik0r0s","home");
+		$return = mysqli_query($conn,"SELECT timestamp AS stamp, freq AS freq FROM freq WHERE timestamp > '". (time() - (60*60*1)) ."';");
+		$array_out = "[60";
+		$array_counter = "[1";
+		$count = 2;
+		while ($row = mysqli_fetch_array($return)){
+			$array_out = $array_out . "," . $row['freq'];
+			$array_counter = $array_counter . "," . $count;
+			$count++;
+		}
+		$array_out = $array_out . "]";
+		$array_counter = $array_counter . "]";
+	?>
+		<div id="opsFreqGraph" style="top:65%;width:100%;height:90%">
+		<!--  frequency limits:
+		governor response 59.5-60.5
+		gen trip 58.5-61.5
+		damage 57.5-62.5 
+		https://info.ornl.gov/sites/publications/Files/Pub57419.pdf -->
+			<canvas id="myChart"></canvas>
+			<script>
+			const ctx = document.getElementById('myChart');
+			var xValues = <?php echo $array_counter; ?>;
+			var yValues = <?php echo $array_out; ?>;
+
+			new Chart("myChart", {
+			  type: "line",
+			  data: {
+				labels: xValues,
+				datasets: [{
+				  label: "Grid Frequency",
+				  data: yValues
+				}]
+			  },
+			  options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							min: 55,
+							max: 65    
+						}
+					}]
+				}
+			  }
+			});
+			</script>
+		</div>
     </div>
   </div>
 
