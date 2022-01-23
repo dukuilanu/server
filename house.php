@@ -164,6 +164,7 @@
 			  data: {
 				labels: xValues,
 				datasets: [{
+				  label: "Grid Frequency",
 				  data: yValues
 				}]
 			  },
