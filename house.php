@@ -131,7 +131,7 @@
         loading...
       </div>
     </div>
-	<div id="opsFreq" class="subSection" style="top:402px;left:5%;width:90%;height:265">
+	<div id="opsFreq" class="subSection" style="top:402px;left:5%;width:90%;height:265;background-color:white">
       POWER DIST:
 	<?php
 		$conn = mysqli_connect("localhost","root","Apik0r0s","home");
@@ -147,12 +147,11 @@
 		$array_out = $array_out . "]";
 		$array_counter = $array_counter . "]";
 	?>
-		<div id="opsFreqGraph" style="top:65%;width:100%;height:90%">
-		<!--  frequency limits:
-		governor response 59.5-60.5
-		gen trip 58.5-61.5
-		damage 57.5-62.5 
-		https://info.ornl.gov/sites/publications/Files/Pub57419.pdf -->
+		<div id="opsFreqGraph" style="top:65%;width:100%;height:90%" title="frequency limits:
+governor response 59.5-60.5
+gen trip 58.5-61.5
+damage 57.5-62.5
+https://info.ornl.gov/sites/publications/Files/Pub57419.pdf">
 			<canvas id="myChart"></canvas>
 			<script>
 			const ctx = document.getElementById('myChart');
@@ -160,7 +159,7 @@
 			var yValues = <?php echo $array_out; ?>;
 
 			new Chart("myChart", {
-			  type: "line",
+			  type: "scatter",
 			  data: {
 				labels: xValues,
 				datasets: [{

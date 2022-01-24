@@ -187,6 +187,25 @@ if (!isset($_GET['device_api_pulling']) && !isset($GET_['device_api_pushing']) &
 				$row = mysqli_fetch_array($return);
 				echo $row['state'];
 				break;
+			case "freqStat":
+				$return = mysqli_query($conn,"SELECT timestamp AS time, freq AS freq FROM freq ORDER BY time DESC LIMIT 3;");
+				$i = 0;
+				while($row = mysqli_fetch_array($return)){
+					$array[$i] = $row['freq'];
+					$i++;
+				}
+				$freqStat="white";
+				if (($array[0] < 59.5 || $array[0] > 60.5) && ($array[1] < 59.5 || $array[1] > 60.5) && ($array[2] < 59.5 || $array[2] > 60.5)) {
+					$freqStat = "yellow";
+				}
+				if (($array[0] < 58.5 || $array[0] > 61.5) && ($array[1] < 58.5 || $array[1] > 61.5) && ($array[2] < 58.5 || $array[2] > 61.5)) {
+					$freqStat = "red";
+				}
+				if (($array[0] < 57.5 || $array[0] > 62.5) && ($array[1] < 57.5 || $array[1] > 62.5) && ($array[2] < 57.5 || $array[2] > 62.5)) {
+					$freqStat = "darkred";
+				}
+				echo $freqStat;
+				break;
 		}
 	}
 }
