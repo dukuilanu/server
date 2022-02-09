@@ -1,0 +1,26 @@
+gps daemon is off as it conflicts with discovering arduino devices.
+start gps device:
+systemctl enable gpsd && systemctl start gpsd
+
+wd passport must be plugged in to start kiwix
+(/media/pi/My\ Passport/wikipedia/*.zim must be present, configured in the systemd unit file)
+systemctl start kiwix
+
+launch rtl-sdr listener:
+gqrx (unbder ham radio)
+
+el cheapo "close call" cmd:
+rtl_power -c 20% -f 450M:480M:10000 -i 2 -g 18 -P
+
+kodi is under sound and video for playing videos
+retropi is started from cmd as emulationstation
+
+program yaesu in chirp:
+stop gpsd if the usb serial device is busy or in use for no reason
+hold down moni while turing on
+selector knob down to clone
+f/w so it blinks
+radio -> download, real quick hold down ptt
+
+upload:
+hit moni button, goes into rx mode

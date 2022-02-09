@@ -1,6 +1,3 @@
-
-
-
 <?php
 $conn = mysqli_connect("localhost","root","Apik0r0s","home");
 $conn_therm = mysqli_connect("localhost","root","Apik0r0s","therm");
@@ -50,9 +47,18 @@ if (isset($_GET['device_api_pushing'])) {
 	$reset = mysqli_query($conn,"UPDATE status SET state = FALSE where name = 'gDoor';");
   }
   if (isset($_GET["freq"])) {
-        //update the db with a new power frequency number
-        echo  "INSERT INTO freq values('" . time() . "', " . $_GET["freq"] . "');";
-        $reset = mysqli_query($conn, "INSERT INTO freq values('" . time() . "', '" . $_GET["freq"] . "');");
+    //update the db with a new power frequency number
+    $reset = mysqli_query($conn, "INSERT INTO freq values('" . time() . "', '" . $_GET["freq"] . "');");
+	$return = mysqli_query($conn,"SELECT timestamp AS time, freq AS freq FROM freq ORDER BY time DESC LIMIT 3;");
+	$i = 0;
+	while($row = mysqli_fetch_array($return)){
+		$array[$i] = $row['freq'];
+		$i++;
+	}
+	if (($array[0] < 59.5 || $array[0] > 60.5) && ($array[1] < 59.5 || $array[1] > 60.5) && ($array[2] < 59.5 || $array[2] > 60.5)) {
+		system('/usr/local/bin/freq_send.py');
+		echo " SENT FREQ WARN";
+	}
   }
   echo('OK');
 }
